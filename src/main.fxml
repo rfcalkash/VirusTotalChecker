@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainFormController">
+   <children>
+      <ToolBar maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="40.0" prefWidth="413.0">
+        <items>
+          <Button fx:id="LoadFileButton" mnemonicParsing="false" text="Load list from file" />
+            <Button fx:id="checkSelected" mnemonicParsing="false" text="Check selected" />
+        </items>
+      </ToolBar>
+      <TableView fx:id="listTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <columns>
+             <TableColumn fx:id="srcColumn" prefWidth="75.0" text="Source">
+                 <cellValueFactory><PropertyValueFactory property="SourceFileName" /></cellValueFactory>
+             </TableColumn>
+             <TableColumn fx:id="dataColumn" prefWidth="75.0" text="Data">
+                 <cellValueFactory><PropertyValueFactory property="AdditionalData" /></cellValueFactory>
+             </TableColumn>
+             <TableColumn fx:id="md5Column" prefWidth="75.0" text="MD5">
+                 <cellValueFactory><PropertyValueFactory property="md5" /></cellValueFactory>
+             </TableColumn>
+             <TableColumn fx:id="sha1Column" prefWidth="75.0" text="SHA1">
+                 <cellValueFactory><PropertyValueFactory property="sha1" /></cellValueFactory>
+             </TableColumn>
+         </columns>
+      </TableView>
+      <HBox VBox.vgrow="NEVER">
+         <children>
+            <ProgressBar fx:id="progressBar" progress="0.0" HBox.hgrow="ALWAYS" />
+            <Label fx:id="statusLabel" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
