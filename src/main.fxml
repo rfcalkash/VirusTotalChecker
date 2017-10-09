@@ -32,6 +32,9 @@
              <TableColumn fx:id="sha1Column" prefWidth="75.0" text="SHA1">
                  <cellValueFactory><PropertyValueFactory property="sha1" /></cellValueFactory>
              </TableColumn>
+             <TableColumn fx:id="ScannedColumn" prefWidth="75.0" text="Is scanned">
+                 <cellValueFactory><PropertyValueFactory property="Scanned" /></cellValueFactory>
+             </TableColumn>
          </columns>
       </TableView>
       <HBox VBox.vgrow="NEVER">

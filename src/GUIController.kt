@@ -37,6 +37,7 @@ class MainFormController {
             val file= fc.showOpenDialog(null)
             if(file!=null) {
                 LoadFileButton.isDisable=true
+                checkSelected.isDisable=true
                 statusLabel.text="Processing "+file.absolutePath
                 progressBar.progress= 0.0
                 /*var lft = LoadFileThread(file,progressBar)
@@ -46,6 +47,7 @@ class MainFormController {
                     var loadeddata=LoadFile(file,progressBar)
                     launch(UI) {
                         LoadFileButton.isDisable=false
+                        checkSelected.isDisable=false
                         progressBar.progress = 0.0
                         statusLabel.text = ""
                         data=FXCollections.observableList(loadeddata)
@@ -61,9 +63,13 @@ class MainFormController {
             if(listTable.selectionModel.selectedItems.count()>0) sel_list= listTable.selectionModel.selectedItems.filter { it.Scanned == false }
             else sel_list=listTable.items.filter { it.Scanned == false }
             if(sel_list.count()>0) {
-                var pos=0.0
                 launch(CommonPool) {
-
+                    sel_list.forEach {
+                        launch(CommonPool){
+                            it.CheckData()
+                        }
+                        progressBar.progress= sel_list.filter { it.Scanned==true }.count().toDouble()/sel_list.count()
+                    }
                 }
             }
         }
@@ -81,7 +87,7 @@ class MainFormController {
             fl.forEachLine { lng++ }
             if (lng > 0) {
                 fl.forEachLine {
-                    var cur_rec = RecordData(SourceFileName = fl.absolutePath, Results = emptyList())
+                    var cur_rec = RecordData(SourceFileName = fl.absolutePath)
                     var fragments = it.split(Regex("\\s+"))
                     fragments.forEach {
                         cur_rec.AddData(it)
